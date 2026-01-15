@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.DS_Store
+
+# Env
+.env
+.venv/
+venv/
+
+# Airflow (local artifacts)
+logs/
+airflow.db
+airflow-webserver.pid
+
+# IDE
+.vscode/
+.idea/
+EOF
