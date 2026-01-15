@@ -12,8 +12,32 @@ airflow_practice
  └─  docker-compose.yaml ← airflow Docker 컨테이너 생성을 위한 설정 값
 ```
 
-# 작업 디렉토리를 생성 & Airflow용 기본 폴더 만들기
+0. 작업 디렉토리를 생성 & Airflow용 기본 폴더 만들기
 ```
 mkdir -p ./dags ./logs ./plugins ./config ./data
 touch requirements.txt
 ```
+1. Airflow 설치
+- `docker-compose.yaml`
+- `curl -LfO 'https://airflow.apache.org/docs/apache-airflow/3.1.5/docker-compose.yaml'` 
+2. docker-compose.yaml 파일 수정
+AIRFLOW__CORE__LOAD_EXAMPLES: 'true' → ‘false’
+```
+  volumes:
+		...
+  - ./data:/opt/airflow/data
+  - ./requirements.txt:/requirements.txt
+  environment:
+	  ...
+	  _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-} #--> 해당 값이 있다면 삭제 후 
+   _PIP_ADDITIONAL_REQUIREMENTS_FILE: /requirements.txt
+```
+3. .env 파일 만들기 (권한 문제 방지)
+`echo "AIRFLOW_UID=50000" > .env`
+4. Airflow 초기화
+`docker compose up airflow-init`
+5. Airflow docker 컨테이너 생성
+`docker compose up -d `
+6. Airflow 접속
+[http://localhost:8080](http://localhost:8080/)
+7. DAG 파일 만들기: dags 폴더 안에 .py 파일 넣으면 Airflow UI에 DAG가 자동으로 나타남.
