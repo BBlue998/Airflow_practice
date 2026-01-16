@@ -17,14 +17,14 @@ default_args = dict(
 
 with DAG(
     dag_id="02_python_dag",
-    start_date=pendulum.datetime(2026, 1, 16, tz='Asia/Seoul'),
+    start_date=pendulum.datetime(2026, 1, 15, tz='Asia/Seoul'),
     schedule="30 10 * * *", # cron 표현식
-    tags = ['20260116'],
+    tags = ['20260115'],
     default_args = default_args,
     catchup=False
 ):
     py1 = PythonOperator(
-        task_id = 'py1'
+        task_id = 'py1',
         python_callable=random_language
     )
     
