@@ -25,12 +25,7 @@ with DAG(
 ):
     py1 = PythonOperator(
         task_id = 'py1'
+        python_callable=random_language
     )
-        
-    task1 = EmptyOperator(task_id="task1")
-    task2 = EmptyOperator(task_id="task2")
-    task3 = EmptyOperator(task_id="task3")
-    task4 = EmptyOperator(task_id="task4")
-    task5 = EmptyOperator(task_id="task5")
-
-    task1 >> task2 >> task3 >> task4 >> task5
+    
+py1
